@@ -1,4 +1,4 @@
-# مهند محمد الخضور
+2# مهند محمد الخضور
 
 ![صورة مهند الخضور](https://commons.wikimedia.org/wiki/Special:FilePath/Mohannad_Alkhdoor_2026.jpg)
 
@@ -17,7 +17,7 @@
 
 ## المدونة الإلكترونية - Official Blog
 ✍️ أكتب مقالات تحليلية ومحتوى متخصص عبر مدونتي الرسمية:  
-[مدونة مهند الخضور | مذكرات مهنية وتقارير استراتيجية](https://mohannad-alkhdoor.blogspot.com)
+[مدونة مهند الخضور | مذكرات مهنية وتقارير استراتيجية](https://mohannad-alkhdoor.org)
 
 ## الروابط الرسمية - Official Links
 - [GitHub – المشاريع والهوية الرقمية](https://github.com/Mohannadalkhdoor)  
