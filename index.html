@@ -458,6 +458,94 @@
                 }
             });
         }
-    </script>
+</script>
+<!-- ================= بداية كود جلب مقالات المدونة حياً ================= -->
+<script>
+(function() {
+  // رابط التغذية الحية لمدونة مهند الخضور
+  const BLOG_FEED = 'https://www.mohannad-alkhdoor.org/feeds/posts/default?alt=json&max-results=30';
+
+  async function loadBloggerPosts() {
+    try {
+      const response = await fetch(BLOG_FEED);
+      if (!response.ok) return;
+      const data = await response.json();
+      const entries = data.feed.entry || [];
+
+      const posts = entries.map(entry => {
+        const title = entry.title.$t;
+        const linkObj = entry.link.find(l => l.rel === 'alternate');
+        const link = linkObj ? linkObj.href : '#';
+        
+        // استخراج ملخص النص وإزالة وسوم HTML
+        let rawSnippet = entry.summary ? entry.summary.$t : (entry.content ? entry.content.$t : '');
+        let snippet = rawSnippet.replace(/<[^>]*>/g, '').trim().substring(0, 110) + '...';
+
+        return { title, link, snippet };
+      });
+
+      renderLiveSearch(posts);
+    } catch (err) {
+      console.error('تعذر جلب المقالات من بلوجر:', err);
+    }
+  }
+
+  function renderLiveSearch(posts) {
+    // البحث عن شريط البحث والحاوية الرئيسية في الصفحة
+    const searchInput = document.querySelector('input[type="search"]') || document.querySelector('input');
+    const mainContainer = document.querySelector('.container') || document.body;
+
+    if (!mainContainer) return;
+
+    // إنشاء حاوية مقالات بلوجر المجلوبة حياً
+    const blogSection = document.createElement('div');
+    blogSection.id = 'live-blogger-section';
+    blogSection.style.cssText = 'margin-top: 25px; text-align: right; direction: rtl; font-family: "Cairo", sans-serif;';
+    
+    blogSection.innerHTML = `
+      <h3 style="color: #6B1D2F; font-size: 16px; font-weight: bold; border-bottom: 1px solid #333; padding-bottom: 8px; margin-bottom: 15px;">
+        أحدث مقالات المدونة (نتائج حية):
+      </h3>
+      <div id="blogger-cards-wrapper"></div>
+    `;
+
+    const wrapper = blogSection.querySelector('#blogger-cards-wrapper');
+
+    posts.forEach(post => {
+      const card = document.createElement('div');
+      card.className = 'live-post-card';
+      card.style.cssText = 'background: #18181b; border-right: 4px solid #6B1D2F; padding: 12px 15px; margin-bottom: 10px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);';
+      card.innerHTML = `
+        <a href="${post.link}" target="_blank" style="color: #e2e8f0; font-size: 15px; font-weight: bold; text-decoration: none; display: block; margin-bottom: 4px;">
+          ${post.title}
+        </a>
+        <p style="color: #a1a1aa; font-size: 13px; margin: 0; line-height: 1.6;">
+          ${post.snippet}
+        </p>
+      `;
+      wrapper.appendChild(card);
+    });
+
+    mainContainer.appendChild(blogSection);
+
+    // تفعيل شريط البحث لتصفية مقالات بلوجر حياً أثناء الكتابة
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+        const cards = wrapper.querySelectorAll('.live-post-card');
+
+        cards.forEach(card => {
+          const text = card.textContent.toLowerCase();
+          card.style.display = text.includes(query) ? 'block' : 'none';
+        });
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadBloggerPosts);
+})();
+</script>
+<!-- ================= نهاية كود جلب مقالات المدونة حياً ================= -->
+
 </body>
 </html>
