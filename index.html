@@ -35,11 +35,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet" />
 
-    <!-- Schema.org JSON-LD -->
+        <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
+        {
+          "@type": "ProfilePage",
+          "@id": "https://mohannadalkhdoor.github.io/#webpage",
+          "url": "https://mohannadalkhdoor.github.io/",
+          "name": "مهند الخضور | دليل المحتوى والأرشيف",
+          "description": "فهرس توثيقي ومستودع للمذكرات الإدارية والتحليلات التنظيمية",
+          "isPartOf": {
+            "@id": "https://mohannadalkhdoor.github.io/#website"
+          },
+          "about": {
+            "@id": "https://mohannadalkhdoor.github.io/#person"
+          }
+        },
         {
           "@type": "Person",
           "@id": "https://mohannadalkhdoor.github.io/#person",
@@ -67,8 +80,7 @@
           "@type": "WebSite",
           "@id": "https://mohannadalkhdoor.github.io/#website",
           "url": "https://mohannadalkhdoor.github.io/",
-          "name": "مهند الخضور | دليل المحتوى والأرشيف",
-          "description": "فهرس توثيقي ومستودع للمذكرات الإدارية والتحليلات التنظيمية",
+          "name": "دليل مهند الخضور",
           "publisher": {
             "@id": "https://mohannadalkhdoor.github.io/#person"
           },
@@ -77,6 +89,8 @@
       ]
     }
     </script>
+
+    
 
     <style>
         :root {
